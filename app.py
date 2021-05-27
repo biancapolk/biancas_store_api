@@ -1,3 +1,4 @@
+import os
 from db import db
 from flask import Flask
 from flask_restful import Api
@@ -10,7 +11,7 @@ from resources.store_resource import Store, StoreList
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' # SQL Al.. db is going to live at the root file
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Turning off Flask SQL Alchemy Tracker because SQL Alchemy, the main library, has its own tracking
 app.secret_key = 'jose'
 api = Api(app)
@@ -20,7 +21,7 @@ jwt = JWT(app, authenticate, identity)
 
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
-api.add_resource(UserRegister, '/register')  # When we execute a post request to /register it will call the UserRegister class
+api.add_resource(UserRegister, '/register')
 api.add_resource(Store, '/store/<string:name>')
 api.add_resource(StoreList, '/stores')
 
