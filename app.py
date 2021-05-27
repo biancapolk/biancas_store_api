@@ -1,4 +1,5 @@
 import os
+
 from db import db
 from flask import Flask
 from flask_restful import Api
@@ -11,11 +12,11 @@ from resources.store_resource import Store, StoreList
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///data.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Turning off Flask SQL Alchemy Tracker because SQL Alchemy, the main library, has its own tracking
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+app.config[
+    'SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Turning off Flask SQL Alchemy Tracker because SQL Alchemy, the main library, has its own tracking
 app.secret_key = 'jose'
 api = Api(app)
-
 
 jwt = JWT(app, authenticate, identity)
 
