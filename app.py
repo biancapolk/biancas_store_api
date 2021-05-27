@@ -15,7 +15,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Turning off Flask SQL Al
 app.secret_key = 'jose'
 api = Api(app)
 
-
 jwt = JWT(app, authenticate, identity)
 
 api.add_resource(Item, '/item/<string:name>')
